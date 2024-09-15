@@ -83,12 +83,14 @@ const plugins = [
 			webhook_secret: process.env.STRIPE_WEBHOOK_SECRET,
 		},
 	},
+
 	{
 		resolve: `medusa-plugin-resend`,
 		options: {
 			api_key: process.env.RESEND_API_ID,
 			from: "dev@dreamwalkerstudios.co",
-			template_path: "./data/templates",
+			template_path: "data/templates",
+			enable_endpoint: "42",
 			subject_template_type: process.env.RESEND_SUBJECT_TEMPLATE_TYPE,
 			body_template_type: process.env.RESEND_BODY_TEMPLATE_TYPE,
 			order_placed_template: "order-placed",
@@ -109,6 +111,7 @@ const modules = {
 		resolve: "@medusajs/cache-redis",
 		options: {
 			redisUrl: REDIS_URL,
+			ttl: 30,
 		},
 	},
 };
