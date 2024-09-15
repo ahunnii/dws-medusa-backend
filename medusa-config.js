@@ -31,6 +31,12 @@ const DATABASE_URL = process.env.DATABASE_URL || "postgres://localhost/medusa-st
 
 const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
 
+const RESEND_API_KEY = process.env.RESEND_API_ID;
+const RESEND_ENABLE_ENDPOINT = process.env.RESEND_ENABLE_ENDPOINT;
+const RESEND_TEMPLATE_PATH = process.env.RESEND_TEMPLATE_PATH;
+const RESEND_SUBJECT_TEMPLATE_TYPE = process.env.RESEND_SUBJECT_TEMPLATE_TYPE;
+const RESEND_BODY_TEMPLATE_TYPE = process.env.RESEND_BODY_TEMPLATE_TYPE;
+
 const plugins = [
 	`medusa-fulfillment-manual`,
 	`medusa-payment-manual`,
@@ -81,42 +87,30 @@ const plugins = [
 		resolve: `medusa-plugin-resend`,
 		options: {
 			api_key: process.env.RESEND_API_ID,
-			from: process.env.SES_FROM,
-			enable_endpoint: process.env.SES_ENABLE_ENDPOINT,
-			template_path: process.env.SES_TEMPLATE_PATH,
+			from: "dev@dreamwalkerstudios.co",
+			template_path: "./data/templates",
 			subject_template_type: process.env.RESEND_SUBJECT_TEMPLATE_TYPE,
 			body_template_type: process.env.RESEND_BODY_TEMPLATE_TYPE,
-			order_placed_template: "order_placed",
-			order_shipped_template: "order_shipped",
-			// customer_password_reset_template: "customer_password_reset",
-			// gift_card_created_template: "gift_card_created",
-			//order_canceled_template: 'order_canceled',
-			//order_refund_created_template: 'order_refund_created',
-			//order_return_requested_template: 'order_return_requested',
-			//order_items_returned_template: 'order_items_returned',
-			//swap_created_template: 'swap_created',
-			//swap_shipment_created_template: 'swap_shipment_created',
-			//swap_received_template: 'swap_received',
-			//claim_shipment_created_template: 'claim_shipment_created',
-			//user_password_reset_template: 'user_password_reset',
-			//medusa_restock_template: 'medusa_restock',
+			order_placed_template: "order-placed",
+			order_shipped_template: "order-shipped",
+			order_canceled_template: "order-canceled",
 		},
 	},
 ];
 
 const modules = {
-	/*eventBus: {
-    resolve: "@medusajs/event-bus-redis",
-    options: {
-      redisUrl: REDIS_URL
-    }
-  },
-  cacheService: {
-    resolve: "@medusajs/cache-redis",
-    options: {
-      redisUrl: REDIS_URL
-    }
-  },*/
+	eventBus: {
+		resolve: "@medusajs/event-bus-redis",
+		options: {
+			redisUrl: REDIS_URL,
+		},
+	},
+	cacheService: {
+		resolve: "@medusajs/cache-redis",
+		options: {
+			redisUrl: REDIS_URL,
+		},
+	},
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule["projectConfig"]} */
@@ -128,7 +122,7 @@ const projectConfig = {
 	admin_cors: ADMIN_CORS,
 	worker_mode: process.env.MEDUSA_WORKER_MODE,
 	// Uncomment the following lines to enable REDIS
-	// redis_url: REDIS_URL
+	redis_url: REDIS_URL,
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule} */

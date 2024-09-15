@@ -1,0 +1,60 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Order Confirmation</title>
+		<style>
+			body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; } .container { background-color:
+			#ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); } .header { text-align:
+			center; } .header h1 { color: #333; } .order-details { margin: 20px 0; } .order-item { border-bottom: 1px solid
+			#ddd; padding: 10px 0; } .order-item:last-child { border-bottom: none; } .total { font-weight: bold; } .footer {
+			margin-top: 20px; text-align: center; color: #888; }
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<h1>Order Confirmation</h1>
+			</div>
+
+			<p>Thank you for your purchase, {{customer.first_name}}!</p>
+
+			<div class="order-details">
+				<h2>Order #{{display_id}}</h2>
+				<p>Placed on: {{date}}</p>
+
+				{{#each items}}
+					<div class="order-item">
+						<h3>{{variant.title}} (x{{quantity}})</h3>
+						<p>Price: {{price}}</p>
+						<p>Subtotal: {{totals.subtotal}}</p>
+						<p>Tax: {{totals.tax_total}}</p>
+						<p>Total: {{totals.total}}</p>
+					</div>
+				{{/each}}
+
+				<div class="total">
+					<p>Subtotal: {{subtotal}}</p>
+					<p>Tax: {{tax_total}}</p>
+					<p>Total: {{total}}</p>
+				</div>
+			</div>
+
+			<div class="shipping-details">
+				<h2>Shipping Address</h2>
+				<p>{{shipping_address.first_name}} {{shipping_address.last_name}}</p>
+				<p>{{shipping_address.address_1}}</p>
+				{{#if shipping_address.address_2}}
+					<p>{{shipping_address.address_2}}</p>
+				{{/if}}
+				<p>{{shipping_address.city}}, {{shipping_address.province}} {{shipping_address.postal_code}}</p>
+				<p>{{shipping_address.country_code}}</p>
+			</div>
+
+			<div class="footer">
+				<p>If you have any questions, feel free to contact us at support@example.com.</p>
+				<p>Thank you for shopping with us!</p>
+			</div>
+		</div>
+	</body>
+</html>
