@@ -98,6 +98,16 @@ const plugins = [
 			order_canceled_template: "order-canceled",
 		},
 	},
+	{
+		resolve: `medusa-fulfillment-shippo`,
+		options: {
+			api_key: process.env.SHIPPO_API_KEY,
+			weight_unit_type: "lb", // valid values: g, kg, lb, oz
+			dimension_unit_type: "in", // valid values: cm, mm, in
+			webhook_secret: process.env.SHIPPO_WEBHOOK_SECRET, // README section on webhooks before using!
+			webhook_test_mode: false,
+		},
+	},
 ];
 
 const modules = {
