@@ -43,7 +43,7 @@
     "medusa-interfaces": "1.3.10",
     "medusa-payment-manual": "1.0.25",
     "medusa-payment-stripe": "^6.0.11",
-    "medusa-plugin-brevo": "^0.0.27",
+    "medusa-plugin-brevo": "^0.0.28",
     "medusa-plugin-mailjet": "^0.0.6",
     "medusa-plugin-meilisearch": "^2.0.11",
     "medusa-plugin-nodemailer": "^0.1.4",
